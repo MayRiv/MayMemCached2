@@ -5,7 +5,8 @@ namespace connection {
 
 class IServer
 {
-
+public:
+    virtual void run() = 0;
 };
 
 
