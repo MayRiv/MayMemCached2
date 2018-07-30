@@ -1,0 +1,3 @@
+/home/may/src/MayCachedv2/MayCached/connection/CMakeFiles/rebuild_cache.dir
+/home/may/src/MayCachedv2/MayCached/connection/CMakeFiles/connection.dir
+/home/may/src/MayCachedv2/MayCached/connection/CMakeFiles/edit_cache.dir
