@@ -3,6 +3,7 @@ project(connection)
 
 add_library(connection
     include/connection/IServer.hpp
+    include/connection/ServerFactory.hpp
     src/Server.hpp
     src/Server.cpp
     src/ClientSession.hpp

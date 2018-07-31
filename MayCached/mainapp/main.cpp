@@ -1,9 +1,10 @@
 #include <iostream>
-//#include <boost/atomic.hpp>
-//#include <connection/IServer.hpp>
+#include <connection/IServer.hpp>
+#include <connection/ServerFactory.hpp>
 int main()
 {
-    //boost::atomic<int> a;
+    //maycached::connection::ServerFactory sFactory;
+    //auto server = sFactory.buildServer();
 
     std::cout << "Hello World!" << std::endl;
     return 0;

@@ -6,3 +6,5 @@ add_executable(${PROJECT_NAME} "main.cpp")
 
 target_link_libraries(${PROJECT_NAME} connection)
 
+target_link_libraries(${PROJECT_NAME} engine)
+
