@@ -16,7 +16,7 @@ public:
     void run() override;
 
 private:
-    void handleAccept(std::shared_ptr<ClientSession> session, const boost::system::error_code & err);
+    void handleAccept(boost::shared_ptr<ClientSession> session, const boost::system::error_code & err);
     std::weak_ptr<engine::IRequestController> m_RequestController;
 
     boost::asio::io_service m_io_service;

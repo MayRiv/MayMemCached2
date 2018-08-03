@@ -6,7 +6,7 @@ namespace maycached {
 namespace logic {
 class StupidHandler: public  IHandler
 {
-    void handle();
+    void handle(std::unique_ptr<ICommand> command);
 };
 
 } }

@@ -1,11 +1,16 @@
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 project(engine)
 
-add_library(engine include/engine/IRequestController.hpp
+add_library(engine
+    include/engine/IRequestController.hpp
+    include/engine/RequestControllerFactory.hpp
+    include/engine/IResponse.hpp
     src/RequestController.hpp
     src/RequestController.cpp
     src/RequestControllerFactory.cpp
-    include/engine/RequestControllerFactory.hpp
+    src/StupidResponse.hpp
+    src/StupidResponse.cpp
+
     )
 
 
