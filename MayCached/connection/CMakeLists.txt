@@ -8,6 +8,7 @@ add_library(connection
     src/Server.cpp
     src/ClientSession.hpp
     src/ClientSession.cpp
+    src/ServerFactory.cpp
     )
 
 
@@ -15,3 +16,6 @@ target_include_directories(connection PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE src)
 
 target_link_libraries(connection ${Boost_LIBRARIES})
+
+
+target_link_libraries(connection engine)

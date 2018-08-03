@@ -2,7 +2,12 @@
 #include <string>
 namespace maycached {
 namespace engine {
-bool maycached::engine::RequestController::handleRequest(std::string)
+RequestController::RequestController()
+{
+
+}
+
+bool RequestController::handleRequest(std::string)
 {
 
 }

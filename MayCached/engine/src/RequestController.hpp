@@ -3,8 +3,10 @@
 #include <engine/IRequestController.hpp>
 namespace maycached {
 namespace engine {
+
 class RequestController: public IRequestController {
 public:
+    RequestController();
     bool handleRequest(std::string) override;
 };
 
