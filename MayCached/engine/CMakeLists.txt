@@ -8,8 +8,6 @@ add_library(engine
     src/RequestController.hpp
     src/RequestController.cpp
     src/RequestControllerFactory.cpp
-    src/StupidResponse.hpp
-    src/StupidResponse.cpp
 
     src/IRequestParser.hpp
     src/SimpleProto/SimpleRequestParser.hpp
