@@ -8,3 +8,5 @@ target_link_libraries(${PROJECT_NAME} connection)
 
 target_link_libraries(${PROJECT_NAME} engine)
 
+target_link_libraries(${PROJECT_NAME} logic)
+

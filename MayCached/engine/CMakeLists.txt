@@ -11,9 +11,16 @@ add_library(engine
     src/StupidResponse.hpp
     src/StupidResponse.cpp
 
+    src/IRequestParser.hpp
+    src/SimpleProto/SimpleRequestParser.hpp
+    src/SimpleProto/SimpleRequestParser.cpp
+    src/SimpleProto/Representations/SimpleEchoRepresentation.hpp
+    src/SimpleProto/Representations/SimpleEchoRepresentation.cpp
     )
 
+target_link_libraries(engine logic)
 
 target_include_directories(engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE src)
+
 
