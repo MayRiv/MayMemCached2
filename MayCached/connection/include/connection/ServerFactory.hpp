@@ -4,13 +4,14 @@
 
 #include <engine/IRequestController.hpp>
 #include <memory>
+#include <gsl/pointers>
 
 
 namespace maycached {
 namespace connection {
 class ServerFactory {
 public:
-    std::unique_ptr<IServer> buildServer(std::weak_ptr<engine::IRequestController>);
+    std::unique_ptr<IServer> buildServer(gsl::not_null<engine::IRequestController*>);
 };
 
 }}

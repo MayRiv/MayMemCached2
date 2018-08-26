@@ -8,10 +8,10 @@ namespace engine {
 
 class RequestController: public IRequestController {
 public:
-    RequestController(std::weak_ptr<logic::ILogicController> lController);
-    std::string handleRequest(std::string) override;
+    RequestController(gsl::not_null<logic::ILogicController*> lController);
+    std::string handleRequest(const std::string &) override;
 private:
-    std::weak_ptr<logic::ILogicController> m_LogicController;
+    gsl::not_null<logic::ILogicController*> m_LogicController;
     std::unique_ptr<IRequestParser> m_Parser;
 };
 

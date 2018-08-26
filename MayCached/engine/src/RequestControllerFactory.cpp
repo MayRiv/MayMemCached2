@@ -4,7 +4,7 @@
 namespace maycached {
 namespace engine {
 
-std::unique_ptr<IRequestController> RequestControllerFactory::buildController(std::weak_ptr<logic::ILogicController> lController)
+std::unique_ptr<IRequestController> RequestControllerFactory::buildController(gsl::not_null<logic::ILogicController *> lController)
 {
     return std::make_unique<RequestController>(lController);
 }

@@ -5,17 +5,19 @@
 #include <engine/RequestControllerFactory.hpp>
 #include <logic/ILogicController.hpp>
 #include <logic/LogicControllerFactory.hpp>
+#include <gsl/pointers>
 int main()
 {
-    maycached::logic::LogicControllerFactory lFactory;
-    auto logicController = static_cast<std::shared_ptr<maycached::logic::ILogicController>>(lFactory.buildController());
+    using namespace maycached;
+    logic::LogicControllerFactory lFactory;
+    auto logicController = lFactory.buildController();
 
-    maycached::engine::RequestControllerFactory eFactory;
+    engine::RequestControllerFactory eFactory;
     auto requestController = static_cast<std::shared_ptr<maycached::engine::IRequestController>>(
-                              eFactory.buildController(std::weak_ptr<maycached::logic::ILogicController>(logicController)));
+                              eFactory.buildController(static_cast<gsl::not_null<logic::ILogicController*>>(logicController.get())));
 
-    maycached::connection::ServerFactory sFactory;
-    auto server = sFactory.buildServer(std::weak_ptr<maycached::engine::IRequestController>(requestController));
+    connection::ServerFactory sFactory;
+    auto server = sFactory.buildServer(static_cast<gsl::not_null<engine::IRequestController*>>(requestController.get()));
 
     std::cout << "Hello World!" << std::endl;
     server->run();

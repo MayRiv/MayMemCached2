@@ -5,7 +5,7 @@
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/socket_base.hpp>
 #include <engine/IRequestController.hpp>
-
+#include <gsl/pointers>
 namespace maycached {
 namespace connection {
 
@@ -13,7 +13,7 @@ namespace connection {
 class ClientSession: public boost::enable_shared_from_this<ClientSession>, boost::noncopyable
 {
 public:
-    ClientSession(boost::asio::io_service& io_service, std::weak_ptr<engine::IRequestController> controller);
+    ClientSession(boost::asio::io_service& io_service, const gsl::not_null<engine::IRequestController*> controller);
 
     void start();
     void stop();
@@ -34,9 +34,9 @@ private:
     std::array<char, maxMessageSize> m_ReadBuffer{};
     std::array<char, maxMessageSize> m_WriteBuffer{};
 
-    boost::asio::ip::tcp::socket              m_Socket;
-    bool                                      m_Started;
-    std::weak_ptr<engine::IRequestController> m_Controller;
+    boost::asio::ip::tcp::socket               m_Socket;
+    bool                                       m_Started;
+    gsl::not_null<engine::IRequestController*> m_Engine;
 };
 
 } }

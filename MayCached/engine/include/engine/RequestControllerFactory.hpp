@@ -10,7 +10,7 @@ namespace engine {
 class RequestControllerFactory
 {
 public:
-    std::unique_ptr<IRequestController> buildController(std::weak_ptr<logic::ILogicController>);
+    std::unique_ptr<IRequestController> buildController(gsl::not_null<logic::ILogicController*>);
 };
 } }
 #endif // REQUESTCONTROLLERFACTORY_HPP

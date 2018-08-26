@@ -7,7 +7,7 @@ namespace maycached {
 namespace engine {
 class IRequestController {
 public:
-    virtual std::string handleRequest(std::string) = 0;
+    virtual std::string handleRequest(const std::string&) = 0;
 };
 
 } }

@@ -6,7 +6,7 @@
 #include <iostream>
 namespace maycached {
 namespace connection {
-Server::Server(std::weak_ptr<engine::IRequestController> controller, unsigned short port):m_RequestController(controller), m_io_service(),
+Server::Server(const gsl::not_null<engine::IRequestController *> controller, unsigned short port):m_RequestController(controller), m_io_service(),
                          m_acceptor(m_io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port))
 {
 }

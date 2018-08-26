@@ -8,7 +8,7 @@
 namespace maycached {
 namespace connection {
 
-ClientSession::ClientSession(boost::asio::io_service &io_service, std::weak_ptr<engine::IRequestController> controller):m_Socket(io_service), m_Started(false), m_Controller(controller)
+ClientSession::ClientSession(boost::asio::io_service &io_service, const gsl::not_null<engine::IRequestController *> controller):m_Socket(io_service), m_Started(false), m_Engine(controller)
 {
 }
 
@@ -48,15 +48,8 @@ void ClientSession::onRead(const boost::system::error_code &err, size_t bytes)
             std::string unparsedCommand;
             std::copy_n(m_ReadBuffer.begin(), bytes, std::inserter(unparsedCommand,unparsedCommand.begin()));
             /*TODO: Blocker should be changed to async work*/
-            if(auto&& engine = m_Controller.lock())
-            {
-                auto response = engine->handleRequest(std::move(unparsedCommand));
-                std::cout <<  "We received an answer " << response << std::endl;
-            }
-            else
-            {
-                std::cout << "Can't lock pointer to the engine" << std::endl;
-            }
+            auto response = m_Engine->handleRequest(unparsedCommand);
+            std::cout <<  "We received an answer " << response << std::endl;
         } else
         {
             std::cout << "We have not started" << std::endl;
