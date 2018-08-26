@@ -19,7 +19,7 @@ std::unique_ptr<IHandler> LogicController::buildChainOfHandlers()
     return echoHandler;
 }
 
-void LogicController::handleCommand(const std::weak_ptr<ICommand> &command)
+void LogicController::handleCommand(const gsl::not_null<ICommand*> command)
 {
     m_FirstHandler->handle(command);
 }

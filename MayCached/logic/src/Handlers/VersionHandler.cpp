@@ -4,16 +4,13 @@
 namespace maycached {
 namespace logic {
 
-void VersionHandler::handle(const std::weak_ptr<ICommand> &command)
+void VersionHandler::handle(const gsl::not_null<ICommand*> command)
 {
-    if (auto&& c = command.lock())
+    if (command->getType() == m_Type)
     {
-        if (c->getType() == m_Type)
+        if (auto&& versionCommand = dynamic_cast<VersionCommand*>(command.get()))
         {
-            if (auto&& versionCommand = dynamic_cast<VersionCommand*>(c.get()))
-            {
-                versionCommand->setAnswer(VersionAnswer{1,1});
-            }
+            versionCommand->setAnswer(VersionAnswer{1,1});
         }
     }
 }

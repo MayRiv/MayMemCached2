@@ -11,7 +11,7 @@ class LogicController: public ILogicController
 public:
     LogicController();
     std::unique_ptr<IHandler> buildChainOfHandlers(/*config*/);
-    void handleCommand(const std::weak_ptr<ICommand>& command) override;
+    void handleCommand(const gsl::not_null<ICommand *> command) override;
 private:
     std::unique_ptr<IHandler> m_FirstHandler;
 };

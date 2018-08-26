@@ -1,6 +1,8 @@
 #include <SimpleProto/SimpleRequestParser.hpp>
 #include <logic/Commands/EchoCommand.hpp>
 #include <SimpleProto/Representations/SimpleEchoRepresentation.hpp>
+
+#include <memory>
 namespace maycached {
 namespace engine {
 

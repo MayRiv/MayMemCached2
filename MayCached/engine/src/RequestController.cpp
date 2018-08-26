@@ -1,6 +1,5 @@
 #include <RequestController.hpp>
 #include <string>
-#include <StupidResponse.hpp>
 #include <memory>
 #include <SimpleProto/SimpleRequestParser.hpp>
 namespace maycached {
@@ -12,13 +11,17 @@ RequestController::RequestController(std::weak_ptr<logic::ILogicController> lCon
 
 std::string RequestController::handleRequest(std::string input)
 {
-    std::string answer{"Failed to handle Request"};
-    auto command = std::shared_ptr<logic::ICommand>(m_Parser->parseCommand(input));
-    if (auto&& logic = m_LogicController.lock())
+    const auto failed = "Failed to parse&handle the command: " + input;
+    std::string answer{failed};
+    if (auto&& command = m_Parser->parseCommand(input))
     {
-        logic->handleCommand(command);
-        answer =  command->getAnswer();
+        if (auto&& logic = m_LogicController.lock())
+        {
+            logic->handleCommand(static_cast<gsl::not_null<logic::ICommand*>>(command.get()));
+            answer =  command->getAnswer();
+        }
     }
+
     return answer;
 }
 

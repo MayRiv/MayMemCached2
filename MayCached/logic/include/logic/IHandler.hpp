@@ -2,13 +2,14 @@
 #define LOGIC_IHANDLER_HPP
 #include <logic/Commands/ICommand.hpp>
 #include <memory>
+#include <gsl/pointers>
 namespace maycached {
 namespace logic {
 class IHandler
 {
     std::unique_ptr<IHandler> m_NextHandler{nullptr};
 public:
-    virtual void handle(const std::weak_ptr<ICommand>& command) = 0;
+    virtual void handle(const gsl::not_null<ICommand*> command) = 0;
     void setNextHandler(std::unique_ptr<IHandler>&& handler)
     {
         m_NextHandler = std::move(handler);

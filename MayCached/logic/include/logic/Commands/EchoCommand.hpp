@@ -4,6 +4,7 @@
 #include <logic/Representations/IEchoRepresentation.hpp>
 #include <string>
 #include <memory>
+#include <gsl/pointers>
 namespace maycached {
 namespace logic {
 class EchoCommand : public ICommand
@@ -11,7 +12,8 @@ class EchoCommand : public ICommand
 public:
 
     EchoCommand(std::unique_ptr<IEchoRepresentation>&& representation, const std::string& message):
-        ICommand(ICommand::CommandType::E_ECHO, *representation),
+        ICommand(ICommand::CommandType::E_ECHO,
+                 static_cast<gsl::not_null<IRepresentation*>>(representation.get())),
         m_Representation(std::move(representation)),
         m_Message(message)
     {}

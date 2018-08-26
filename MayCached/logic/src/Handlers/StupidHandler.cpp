@@ -4,16 +4,13 @@
 namespace maycached {
 namespace logic {
 
-void StupidHandler::handle(const std::weak_ptr<ICommand>& command)
+void StupidHandler::handle(const gsl::not_null<ICommand *> command)
 {
-    if (auto&& c = command.lock())
+    if (command->getType() == m_Type)
     {
-        if (c->getType() == m_Type)
+        if (auto&& echoCommand = dynamic_cast<EchoCommand*>(command.get()))
         {
-            if (auto&& echoCommand = dynamic_cast<EchoCommand*>(c.get()))
-            {
-                echoCommand->setAnswer(EchoAnswer{echoCommand->getMessage()});
-            }
+            echoCommand->setAnswer(EchoAnswer{echoCommand->getMessage()});
         }
     }
 }

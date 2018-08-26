@@ -8,7 +8,7 @@ class StupidHandler: public  IHandler
 {
 public:
     StupidHandler(): m_Type(ICommand::CommandType::E_ECHO){}
-    void handle(const std::weak_ptr<ICommand>& command) override;
+    void handle(const gsl::not_null<ICommand*> command) override;
 
 private:
     ICommand::CommandType m_Type;

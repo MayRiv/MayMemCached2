@@ -9,7 +9,8 @@ class VersionCommand: public ICommand
 {
 public:
     VersionCommand(std::unique_ptr<IVersionRepresentation>&& representation):
-        ICommand(ICommand::E_VERSION, *representation),
+        ICommand(ICommand::E_VERSION,
+                 static_cast<gsl::not_null<IRepresentation*>>(representation.get())),
         m_Representation(std::move(representation))
     {
     }

@@ -2,6 +2,7 @@
 #define ICOMMAND_HPP
 #include <logic/Representations/IRepresentation.hpp>
 #include <memory>
+#include <gsl/pointers>
 namespace maycached {
 namespace logic {
 class ICommand
@@ -15,7 +16,7 @@ public:
         E_VERSION,
         E_MAX
     };
-    ICommand(CommandType type, const IRepresentation& representation): m_Type(type), m_Representation(representation)
+    ICommand(CommandType type, const gsl::not_null<IRepresentation*> representation): m_Type(type), m_Representation(representation)
     {}
 
     CommandType getType(){
@@ -23,14 +24,14 @@ public:
     }
     std::string getAnswer() const
     {
-        return m_Representation.serializeAnswerToString();
+        return m_Representation->serializeAnswerToString();
     }
     virtual std::string getDescription(){
         return "No description";
     }
 private:
     CommandType m_Type;
-    const IRepresentation& m_Representation;
+    const gsl::not_null<IRepresentation*> m_Representation;
 };
 
 } }

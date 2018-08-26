@@ -16,6 +16,8 @@ add_library(engine
     src/SimpleProto/Representations/SimpleEchoRepresentation.cpp
     )
 
+set_target_properties(engine PROPERTIES
+    CXX_STANDARD 17)
 target_link_libraries(engine logic)
 
 target_include_directories(engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
