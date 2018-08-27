@@ -8,7 +8,7 @@ class VersionHandler: public  IHandler
 {
 public:
     VersionHandler(): m_Type(ICommand::CommandType::E_VERSION){}
-    void handle(const gsl::not_null<ICommand*> command) override;
+    void handle(ICommand& command) override;
 
 private:
     ICommand::CommandType m_Type;

@@ -9,7 +9,7 @@ class IHandler
 {
     std::unique_ptr<IHandler> m_NextHandler{nullptr};
 public:
-    virtual void handle(const gsl::not_null<ICommand*> command) = 0;
+    virtual void handle(ICommand& command) = 0;
     void setNextHandler(std::unique_ptr<IHandler>&& handler)
     {
         m_NextHandler = std::move(handler);

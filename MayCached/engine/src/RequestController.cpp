@@ -15,7 +15,7 @@ std::string RequestController::handleRequest(const std::string& input)
     std::string answer{failed};
     if (auto&& command = m_Parser->parseCommand(input))
     {
-        m_LogicController->handleCommand(static_cast<gsl::not_null<logic::ICommand*>>(command.get()));
+        m_LogicController->handleCommand(*command);
         answer =  command->getAnswer();
     }
 

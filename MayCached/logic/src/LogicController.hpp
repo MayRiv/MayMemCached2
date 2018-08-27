@@ -4,16 +4,18 @@
 #include <logic/IHandler.hpp>
 #include <memory>
 #include <logic/ILogicController.hpp>
+#include <IStorage.hpp>
 namespace maycached {
 namespace logic {
 class LogicController: public ILogicController
 {
 public:
     LogicController();
-    std::unique_ptr<IHandler> buildChainOfHandlers(/*config*/);
-    void handleCommand(const gsl::not_null<ICommand *> command) override;
+    std::unique_ptr<IHandler> buildChainOfHandlers(IStorage& storage/*,config*/);
+    void handleCommand(ICommand& command) override;
 private:
     std::unique_ptr<IHandler> m_FirstHandler;
+    std::unique_ptr<IStorage> m_Storage;
 };
 } }
 #endif

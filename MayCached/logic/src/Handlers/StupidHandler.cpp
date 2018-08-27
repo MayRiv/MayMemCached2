@@ -4,14 +4,14 @@
 namespace maycached {
 namespace logic {
 
-void StupidHandler::handle(const gsl::not_null<ICommand *> command)
+void StupidHandler::handle(ICommand &command)
 {
-    if (command->getType() == m_Type)
+    if (command.getType() == m_Type)
     {
-        if (auto&& echoCommand = dynamic_cast<EchoCommand*>(command.get()))
-        {
-            echoCommand->setAnswer(EchoAnswer{echoCommand->getMessage()});
-        }
+        auto&& echoCommand = dynamic_cast<EchoCommand&>(command);
+
+        echoCommand.setAnswer(EchoAnswer{echoCommand.getMessage()});
+
     }
 }
 

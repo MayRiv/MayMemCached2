@@ -19,7 +19,7 @@ public:
     ICommand(CommandType type, const gsl::not_null<IRepresentation*> representation): m_Type(type), m_Representation(representation)
     {}
 
-    CommandType getType(){
+    CommandType getType() const{
         return m_Type;
     }
     std::string getAnswer() const
