@@ -34,9 +34,9 @@ void ClientSession::doRead()
                std::bind(&ClientSession::onRead, shared_from_this(), std::placeholders::_1, std::placeholders::_2));
 }
 
-void ClientSession::doWrite()
+void ClientSession::doWrite(const size_t size)
 {
-
+    boost::asio::async_write(m_Socket,boost::asio::buffer(m_WriteBuffer, size), std::bind(&ClientSession::onWrite,shared_from_this(),std::placeholders::_1, std::placeholders::_2));
 }
 
 void ClientSession::onRead(const boost::system::error_code &err, size_t bytes)
@@ -48,8 +48,22 @@ void ClientSession::onRead(const boost::system::error_code &err, size_t bytes)
             std::string unparsedCommand;
             std::copy_n(m_ReadBuffer.begin(), bytes, std::inserter(unparsedCommand,unparsedCommand.begin()));
             /*TODO: Blocker should be changed to async work*/
-            auto response = m_Engine->handleRequest(unparsedCommand);
-            std::cout <<  "We received an answer " << response << std::endl;
+            auto&& response = m_Engine->handleRequest(unparsedCommand);
+            if(response.size() <= m_WriteBuffer.size())  // should be considered as maybe static check at
+                                                        // representation layer.
+            {
+                m_WriteBuffer.fill('\0');
+                // could be a little bit faster.
+                for(size_t i = 0; i < response.size(); i++)
+                {
+                    m_WriteBuffer[i] = response[i];
+                }
+            }
+            else
+            {
+                std::cout <<  "Error: Representation is bigger than buffer size, repro size"<< response.size() <<  std::endl;
+            }
+            doWrite(response.size());
         } else
         {
             std::cout << "We have not started" << std::endl;
@@ -71,7 +85,7 @@ size_t ClientSession::isReadComplete(const boost::system::error_code &err, size_
 }
 void ClientSession::onWrite(const boost::system::error_code &err, size_t bytes)
 {
-
+    doRead();
 }
 
 

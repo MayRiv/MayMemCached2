@@ -25,7 +25,7 @@ public:
     }
 private:
     void doRead();
-    void doWrite();
+    void doWrite(const size_t size);
     void onWrite(const boost::system::error_code &err, size_t bytes);
     void onRead(const boost::system::error_code &err, size_t bytes);
     size_t isReadComplete(const boost::system::error_code &err, size_t bytes) const;
