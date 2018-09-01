@@ -1,4 +1,4 @@
-#ifndef LEXEME_PARSER_H_H
+#ifndef LEXEME_PARSER_H
 #define LEXEME_PARSER_H
 #include "ILexemeParser.hpp"
 
