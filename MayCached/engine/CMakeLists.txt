@@ -12,6 +12,9 @@ add_library(engine
     src/IRequestParser.hpp
     src/SimpleProto/SimpleRequestParser.hpp
     src/SimpleProto/SimpleRequestParser.cpp
+    src/SimpleProto/LexemeParser.hpp
+    src/SimpleProto/ILexemeParser.hpp
+    src/SimpleProto/LexemeParser.cpp
     src/SimpleProto/Representations/SimpleEchoRepresentation.hpp
     src/SimpleProto/Representations/SimpleEchoRepresentation.cpp
     )
