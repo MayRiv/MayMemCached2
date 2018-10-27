@@ -17,6 +17,10 @@ void SetHandler::handle(ICommand &command)
                                                    : StatusAnswer::Status::E_UNKONWN_ERROR});
 
     }
+    else
+    {
+        pass(command);
+    }
 }
 
 } }

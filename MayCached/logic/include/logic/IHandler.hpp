@@ -26,6 +26,13 @@ public:
             setNextHandler(std::forward<T>(handler));
         }
     }
+protected:
+    void pass(ICommand& command){
+        if (m_NextHandler)
+        {
+            m_NextHandler->handle(command);
+        }
+    }
 };
 
 } }

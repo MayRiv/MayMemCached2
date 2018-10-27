@@ -2,8 +2,11 @@
 namespace maycached {
 namespace engine {
 
-std::optional<std::vector<std::string> > lexeme_parser::LexemeParser::parse(const std::string &input)
+std::optional<std::vector<std::string> > lexeme_parser::LexemeParser::parse(std::string input)
 {
+    const std::string newLine = "\r\n";
+    auto newLinePos = input.find("\r\n");
+    input.erase(newLinePos, newLine.length());
     for(auto& ch : input)
     {
         switch (ch) {
@@ -23,8 +26,10 @@ std::optional<std::vector<std::string> > lexeme_parser::LexemeParser::parse(cons
     }
     if (m_ParsedSuccessfully)
     {
-
-        return m_Tokens;
+        auto result = m_Tokens;
+        m_Tokens.clear();
+        m_Tokens.push_back({""});
+        return result;
     }
     else
     {

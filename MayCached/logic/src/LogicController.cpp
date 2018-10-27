@@ -18,8 +18,8 @@ std::unique_ptr<IHandler> LogicController::buildChainOfHandlers(IStorage& storag
 {
     auto echoHandler = std::make_unique<StupidHandler>();
     auto versionHandler = std::make_unique<VersionHandler>();
-    auto setHandler = std::make_unique<GetHandler>(storage);
-    auto getHandler = std::make_unique<SetHandler>(storage);
+    auto setHandler = std::make_unique<SetHandler>(storage);
+    auto getHandler = std::make_unique<GetHandler>(storage);
 
     echoHandler->addHandlerToChain(std::move(versionHandler));
     echoHandler->addHandlerToChain(std::move(setHandler));

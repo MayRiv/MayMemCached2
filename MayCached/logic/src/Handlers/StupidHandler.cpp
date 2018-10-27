@@ -13,6 +13,10 @@ void StupidHandler::handle(ICommand &command)
         echoCommand.setAnswer(EchoAnswer{echoCommand.getMessage()});
 
     }
+    else
+    {
+        pass(command);
+    }
 }
 
 } }

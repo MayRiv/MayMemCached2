@@ -8,15 +8,22 @@ add_library(engine
     src/RequestController.hpp
     src/RequestController.cpp
     src/RequestControllerFactory.cpp
-
+    src/RequestParser.hpp
+    src/RequestParser.cpp
     src/IRequestParser.hpp
-    src/SimpleProto/SimpleRequestParser.hpp
-    src/SimpleProto/SimpleRequestParser.cpp
     src/SimpleProto/LexemeParser.hpp
     src/SimpleProto/ILexemeParser.hpp
     src/SimpleProto/LexemeParser.cpp
+    src/RuleSet.hpp
+    src/ICommandBuilder.hpp
+    src/SimpleProto/SimpleCommandBuilder.hpp
+    src/SimpleProto/SimpleCommandBuilder.cpp
     src/SimpleProto/Representations/SimpleEchoRepresentation.hpp
     src/SimpleProto/Representations/SimpleEchoRepresentation.cpp
+    src/SimpleProto/Representations/SimpleGetRepresentation.hpp
+    src/SimpleProto/Representations/SimpleGetRepresentation.cpp
+    src/SimpleProto/Representations/SimpleStatusRepresentation.hpp
+    src/SimpleProto/Representations/SimpleStatusRepresentation.cpp
     )
 set_target_properties(engine PROPERTIES
     CXX_STANDARD 17)

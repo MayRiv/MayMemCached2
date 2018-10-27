@@ -12,6 +12,10 @@ void VersionHandler::handle(ICommand &command)
 
         versionCommand.setAnswer(VersionAnswer{1,1});
     }
+    else
+    {
+        pass(command);
+    }
 }
 
 } }

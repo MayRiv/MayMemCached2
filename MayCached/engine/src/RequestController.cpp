@@ -1,12 +1,12 @@
 #include <RequestController.hpp>
 #include <string>
 #include <memory>
-#include <SimpleProto/SimpleRequestParser.hpp>
+#include <RequestParser.hpp>
 namespace maycached {
 namespace engine {
 RequestController::RequestController(gsl::not_null<logic::ILogicController *> lController):m_LogicController(lController)
 {
-    m_Parser = std::make_unique<SimpleRequestParser>(); // has to be created by factory using config
+    m_Parser = std::make_unique<RequestParser>(); // has to be created by factory using config
 }
 
 std::string RequestController::handleRequest(const std::string& input)

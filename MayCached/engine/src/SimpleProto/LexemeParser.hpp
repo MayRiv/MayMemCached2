@@ -49,7 +49,7 @@ public:
         SlashOccuredState
     };
 
-    std::optional<std::vector<std::string>> parse(const std::string& input) override;
+    std::optional<std::vector<std::string>> parse(std::string input) override;
     LexemeParser():
         m_PreviousState(StateMapping::SpaceSeparatorState),
         m_ParsedSuccessfully(true)

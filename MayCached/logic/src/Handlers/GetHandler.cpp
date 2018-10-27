@@ -14,6 +14,10 @@ void GetHandler::handle(ICommand &command)
         getCommand.setAnswer(GetAnswer{result});
 
     }
+    else
+    {
+        pass(command);
+    }
 }
 
 } }
