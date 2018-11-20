@@ -22,6 +22,9 @@ add_library(${PROJECT_NAME}
     include/logic/LogicControllerFactory.hpp
     src/LogicControllerFactory.cpp
     include/logic/ILogicController.hpp
+    src/ITimeExpirationManager.hpp
+    src/TimeExpirationManager.cpp
+    src/TimeExpirationManager.hpp
     include/logic/Commands/EchoCommand.hpp
     include/logic/Commands/EchoCommand.cpp
     include/logic/Commands/VersionCommand.hpp

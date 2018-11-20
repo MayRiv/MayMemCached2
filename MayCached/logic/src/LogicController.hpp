@@ -5,6 +5,7 @@
 #include <memory>
 #include <logic/ILogicController.hpp>
 #include <IStorage.hpp>
+#include <ITimeExpirationManager.hpp>
 namespace maycached {
 namespace logic {
 class LogicController: public ILogicController
@@ -16,6 +17,7 @@ public:
 private:
     std::unique_ptr<IHandler> m_FirstHandler;
     std::unique_ptr<IStorage> m_Storage;
+    std::unique_ptr<ITimeExpirationManager> m_TimeExpirationManager;
 };
 } }
 #endif

@@ -4,16 +4,27 @@
 #include <Data.hpp>
 #include <chrono>
 #include <optional>
+#include <unordered_map>
+#include <ITimeExpirationManager.hpp>
 namespace maycached {
 namespace logic {
 
 bool Storage::set(const std::string &key, const std::string &value, std::optional<uint32_t> expires)
 {
     auto now  = std::chrono::system_clock::now();
+    const bool isExpired = expires.has_value();
+    const auto expirationTime = now + std::chrono::seconds(expires.value());
+    if (isExpired)
+    {
+
+        m_TimeExpirationManager->addTimeMarker(key, expirationTime);
+    }
     std::unique_lock<std::shared_mutex> lock(m_SMutex);
 
-    m_Data[key] = {key, value, (expires.has_value()
-                   ? std::optional<decltype(now)>(now + std::chrono::seconds(expires.value()))
+
+
+    m_Data[key] = {key, value, (isExpired
+                   ? std::optional<decltype(now)>(expirationTime)
                    : std::nullopt)};
 
     return true;
@@ -33,9 +44,24 @@ std::optional<std::string> Storage::get(const std::string &key) const
     }
 }
 
+bool Storage::remove(const std::string &key)
+{
+    std::unique_lock<std::shared_mutex> lock(m_SMutex);
+    bool isRemoved{false};
+    auto it = m_Data.find(key);
+    if (it != m_Data.end())
+    {
+        m_Data.erase(it);
+        isRemoved = true;
+    }
+
+    return isRemoved;
+}
+
 bool Storage::sync() const
 {
     std::unique_lock<std::shared_mutex> lock(m_SMutex);
+    return true;
 }
 
 

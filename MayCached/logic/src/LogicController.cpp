@@ -4,12 +4,15 @@
 #include <Handlers/GetHandler.hpp>
 #include <Handlers/SetHandler.hpp>
 #include <Storage.hpp>
+#include <TimeExpirationManager.hpp>
 namespace maycached {
 namespace logic {
 
 LogicController::LogicController()
 {
-    m_Storage = std::make_unique<Storage>();
+    m_TimeExpirationManager = std::make_unique<TimeExpirationManager>();
+    m_Storage = std::make_unique<Storage>(m_TimeExpirationManager.get());
+
     m_FirstHandler = buildChainOfHandlers(*m_Storage);
 
 }
