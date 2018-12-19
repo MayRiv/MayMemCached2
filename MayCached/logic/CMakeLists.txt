@@ -25,6 +25,8 @@ add_library(${PROJECT_NAME}
     src/ITimeExpirationManager.hpp
     src/TimeExpirationManager.cpp
     src/TimeExpirationManager.hpp
+    src/TimeExpirationCore.cpp
+    src/TimeExpirationCore.hpp
     include/logic/Commands/EchoCommand.hpp
     include/logic/Commands/EchoCommand.cpp
     include/logic/Commands/VersionCommand.hpp
@@ -52,3 +54,25 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/in
 target_link_libraries(logic GSL)
 set_target_properties(logic PROPERTIES
     CXX_STANDARD 17)
+
+
+#to be removed to another CMAKE
+find_package(GTest REQUIRED)
+find_package(Threads)
+
+add_executable(logic_test  test/TimeExpirationManagerTest.hpp
+                           test/TimeExpirationCoreTest.hpp
+                           src/TimeExpirationCore.hpp
+                           src/TimeExpirationCore.cpp
+                           test/TestLauncher.cpp
+                           )
+
+
+target_include_directories(logic_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+    PRIVATE src)
+
+set_target_properties(logic_test PROPERTIES
+                           CXX_STANDARD 17)
+target_include_directories(logic_test PRIVATE ${GTEST_INCLUDE_DIRS})
+target_link_libraries(logic_test ${GTEST_LIBRARIES})
+target_link_libraries(logic_test ${CMAKE_THREAD_LIBS_INIT})
