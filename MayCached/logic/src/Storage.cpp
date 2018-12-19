@@ -11,16 +11,15 @@ namespace logic {
 
 bool Storage::set(const std::string &key, const std::string &value, std::optional<uint32_t> expires)
 {
-    auto now  = std::chrono::system_clock::now();
+    const auto now  = std::chrono::system_clock::now();
     const bool isExpired = expires.has_value();
-    const auto expirationTime = now + std::chrono::seconds(expires.value());
+    auto expirationTime = now;
     if (isExpired)
     {
-
+        expirationTime = now + std::chrono::seconds(expires.value());
         m_TimeExpirationManager->addTimeMarker(key, expirationTime);
     }
     std::unique_lock<std::shared_mutex> lock(m_SMutex);
-
 
 
     m_Data[key] = {key, value, (isExpired
