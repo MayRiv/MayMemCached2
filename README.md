@@ -15,4 +15,4 @@ GET <id> - gets value by key if existing, otherwise the answer will EMPTY
 SET <id> <value> <optional seconds> - sets value by key. It's possible to set time to expire. 
 DEL <id> - removes value from memory, removes corresponding timeMarker.
 
-Currently, all the values are stored just in memory, there is no proper Start Up ShutDown logic, there is only simple text protocol support, there is not replication logic, the project is not configurable.
+Currently, all the values are stored just in memory, there is no proper Start Up ShutDown logic, there is only simple text protocol support, there is not replication logic, the project is not configurable, there is a mess in CMake.
