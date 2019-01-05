@@ -62,6 +62,16 @@ void RequestParser::setUpRules()
     })
            .setBuilder(std::bind(&ICommandBuilder::buildGetCommand, m_CommandBuilder.get(), std::placeholders::_1));
 
+    RuleSet delRule;
+    delRule.addRule([](RuleSet::Lexemes l){
+        return l.size() == 2;
+    })
+           .addRule([](RuleSet::Lexemes l){
+        return boost::to_upper_copy(l[0]) == "DEL";
+    })
+           .setBuilder(std::bind(&ICommandBuilder::buildDelCommand, m_CommandBuilder.get(), std::placeholders::_1));
+
+
     RuleSet setRule;
     setRule.addRule([](RuleSet::Lexemes l){
         return l.size() == 3 || l.size() == 4;
@@ -77,6 +87,7 @@ void RequestParser::setUpRules()
 
     rules.push_back(getRule);
     rules.push_back(setRule);
+    rules.push_back(delRule);
 }
 
 

@@ -9,6 +9,7 @@ class SimpleCommandBuilder : public ICommandBuilder {
 public:
     std::unique_ptr<logic::ICommand> buildGetCommand(const std::vector<std::string>& l) override;
     std::unique_ptr<logic::ICommand> buildSetCommand(const std::vector<std::string> &l) override;
+    std::unique_ptr<logic::ICommand> buildDelCommand(const std::vector<std::string> &l) override;
 };
 }
 }

@@ -13,6 +13,7 @@ public:
         E_ECHO = 0,
         E_GET,
         E_SET,
+        E_DELETE,
         E_VERSION,
         E_MAX
     };

@@ -2,6 +2,7 @@
 #include <thread>
 #include <iostream>
 #include <experimental/map>
+#include <set>
 namespace maycached {
 namespace logic {
 TimeExpirationCore::TimeExpirationCore()
@@ -22,23 +23,13 @@ bool TimeExpirationCore::addTimeMarker(const std::string &key, const std::chrono
 
 bool TimeExpirationCore::removeTimeMarker(const std::string &key)
 {
-    bool isDeleted{false};
+    bool isDeleted{true};
     std::unique_lock<std::shared_mutex> lock(m_ExpirationMarkersMutex);
-    auto elementToDelete = m_ExpirationMarkers.end();
-    for (auto it =  m_ExpirationMarkers.begin(); it != m_ExpirationMarkers.end(); it++) //TODO: should be refactored to find_if or even remove_if
-    {
-        if (key == it->second)
-        {
-            elementToDelete = it;
-            break;
-        }
-    }
 
-    if (elementToDelete != m_ExpirationMarkers.end())
-    {
-        m_ExpirationMarkers.erase(elementToDelete);
-        isDeleted = true;
-    }
+    std::cout << "Removing time marker for " << key << std::endl;
+    std::experimental::erase_if(m_ExpirationMarkers, [&key](const auto& marker){
+                                    return marker.second == key;
+                                });
     return isDeleted;
 }
 
@@ -61,8 +52,29 @@ void TimeExpirationCore::removeExpiredValues(const std::chrono::time_point<std::
     auto expiredPredicate = [&time](const std::multimap<std::chrono::time_point<std::chrono::system_clock>, std::string>::value_type& v){
         return v.first < time;
     };
-    std::unique_lock<std::shared_mutex> lock(m_ExpirationMarkersMutex);
-    std::experimental::erase_if(m_ExpirationMarkers, expiredPredicate);
+    std::set<std::string> toBeDeleted{};
+    {
+        std::unique_lock<std::shared_mutex> lock(m_ExpirationMarkersMutex);
+        auto endOfExpired = m_ExpirationMarkers.begin();
+        while(endOfExpired != m_ExpirationMarkers.end())
+        {
+            if (expiredPredicate(*endOfExpired))
+            {
+                toBeDeleted.emplace(endOfExpired->second);
+                endOfExpired++;
+            }
+            else
+            {
+               break;
+            }
+        }
+        std::cout << "We are about to remove " << std::distance(m_ExpirationMarkers.begin(), endOfExpired) << " markers" << std::endl;
+        m_ExpirationMarkers.erase(m_ExpirationMarkers.begin(), endOfExpired);
+    }
+    for(auto it: toBeDeleted) //to be sure that we 100% will not have a deadlock, we should call callback not under the lock
+    {
+        m_Deleter(it);
+    }
 }
 
 

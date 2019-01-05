@@ -12,6 +12,8 @@ add_library(${PROJECT_NAME}
     src/Handlers/SetHandler.cpp
     src/Handlers/GetHandler.hpp
     src/Handlers/GetHandler.cpp
+    src/Handlers/DeleteHandler.cpp
+    src/Handlers/DeleteHandler.hpp
     src/Storage.hpp
     src/Storage.cpp
     src/IStorage.hpp
@@ -35,6 +37,8 @@ add_library(${PROJECT_NAME}
     include/logic/Commands/GetCommand.cpp
     include/logic/Commands/SetCommand.hpp
     include/logic/Commands/SetCommand.cpp
+    include/logic/Commands/DeleteCommand.cpp
+    include/logic/Commands/DeleteCommand.hpp
 
     include/logic/Representations/IRepresentation.hpp
     include/logic/Representations/IVersionRepresentation.hpp

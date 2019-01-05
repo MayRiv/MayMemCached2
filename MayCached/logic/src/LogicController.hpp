@@ -12,6 +12,7 @@ class LogicController: public ILogicController
 {
 public:
     LogicController();
+    ~LogicController() override;
     std::unique_ptr<IHandler> buildChainOfHandlers(IStorage& storage/*,config*/);
     void handleCommand(ICommand& command) override;
 private:

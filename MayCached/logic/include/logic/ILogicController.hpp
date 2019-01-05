@@ -8,6 +8,7 @@ class ILogicController
 {
 public:
     virtual void handleCommand(ICommand& command) = 0;
+    virtual ~ILogicController() = default;
 };
 } }
 #endif

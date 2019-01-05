@@ -13,11 +13,11 @@ std::string SimpleGetRepresentation::serializeAnswerToString() const
 {
     if (m_Answer.value.has_value())
     {
-        return "VALUE: " + *m_Answer.value;
+        return "VALUE: " + *m_Answer.value + "\r\n";
     }
     else
     {
-        return "EMPTY";
+        return "EMPTY\r\n";
     }
 }
 

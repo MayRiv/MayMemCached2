@@ -10,6 +10,7 @@ class ICommandBuilder{
 public:
     virtual std::unique_ptr<logic::ICommand> buildGetCommand(const std::vector<std::string>& l) = 0;
     virtual std::unique_ptr<logic::ICommand> buildSetCommand(const std::vector<std::string>& l) = 0;
+    virtual std::unique_ptr<logic::ICommand> buildDelCommand(const std::vector<std::string>& l) = 0;
 };
 }
 }

@@ -11,7 +11,7 @@ void SimpleStatusRepresentation::setAnswer(const logic::StatusAnswer &answer)
 
 std::string SimpleStatusRepresentation::serializeAnswerToString() const
 {
-    std::string result = "OK";
+    std::string result = "OK";;
     switch (m_Status.status) {
     case logic::StatusAnswer::Status::E_UNKONWN_ERROR:
         result = "Unknown error";
@@ -19,7 +19,7 @@ std::string SimpleStatusRepresentation::serializeAnswerToString() const
     default:
         break;
     }
-    return result;
+    return result  + "\r\n";
 }
 
 } }

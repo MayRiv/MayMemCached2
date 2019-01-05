@@ -17,7 +17,7 @@ bool Storage::set(const std::string &key, const std::string &value, std::optiona
     if (isExpired)
     {
         expirationTime = now + std::chrono::seconds(expires.value());
-        m_TimeExpirationManager->addTimeMarker(key, expirationTime);
+        m_TimeExpirationManager->addTimeMarker(key, expirationTime); //Remember that timeManager has inner lock, be careful for deadlocks
     }
     std::unique_lock<std::shared_mutex> lock(m_SMutex);
 
@@ -55,6 +55,12 @@ bool Storage::remove(const std::string &key)
     }
 
     return isRemoved;
+}
+
+bool Storage::del(const std::string &key)
+{
+    m_TimeExpirationManager->removeTimeMarker(key);
+    return remove(key);
 }
 
 bool Storage::sync() const
