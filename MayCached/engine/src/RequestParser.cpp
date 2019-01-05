@@ -84,10 +84,19 @@ void RequestParser::setUpRules()
     })
            .setBuilder(std::bind(&ICommandBuilder::buildSetCommand, m_CommandBuilder.get(), std::placeholders::_1));
 
+    RuleSet stopRule;
+    stopRule.addRule([](RuleSet::Lexemes l){
+        return l.size() == 1;
+    })
+           .addRule([](RuleSet::Lexemes l){
+        return boost::to_upper_copy(l[0]) == "STOP";
+    })
+           .setBuilder(std::bind(&ICommandBuilder::buildStopCommand, m_CommandBuilder.get(), std::placeholders::_1));
 
     rules.push_back(getRule);
     rules.push_back(setRule);
     rules.push_back(delRule);
+    rules.push_back(stopRule);
 }
 
 

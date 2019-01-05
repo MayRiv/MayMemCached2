@@ -2,6 +2,7 @@
 #include <logic/Commands/SetCommand.hpp>
 #include <logic/Commands/GetCommand.hpp>
 #include <logic/Commands/DeleteCommand.hpp>
+#include <logic/Commands/StopCommand.hpp>
 #include <SimpleProto/Representations/SimpleGetRepresentation.hpp>
 #include <SimpleProto/Representations/SimpleStatusRepresentation.hpp>
 #include <string>
@@ -35,6 +36,13 @@ std::unique_ptr<logic::ICommand> SimpleCommandBuilder::buildDelCommand(const std
     auto deltCom = std::make_unique<logic::DeleteCommand>(std::move(delRep), l[1]);
     std::cout << "Delete command is built" << std::endl;
     return deltCom;
+}
+
+std::unique_ptr<logic::ICommand> SimpleCommandBuilder::buildStopCommand(const std::vector<std::string> &l)
+{
+    auto statusRep = std::make_unique<SimpleStatusRepresentation>();
+    auto stopCom = std::make_unique<logic::StopCommand>(std::move(statusRep));
+    return stopCom;
 }
 
 

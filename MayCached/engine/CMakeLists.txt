@@ -19,6 +19,8 @@ add_library(${PROJECT_NAME} ${${PROJECT_NAME}_src})
 set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 17)
 target_link_libraries(${PROJECT_NAME} logic)
+target_link_libraries(${PROJECT_NAME} system)
+
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE src)
 

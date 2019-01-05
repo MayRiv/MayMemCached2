@@ -3,9 +3,10 @@
 #include <string>
 #include <engine/IResponse.hpp>
 #include <memory>
+#include <system/IComponent.hpp>
 namespace maycached {
 namespace engine {
-class IRequestController {
+class IRequestController: public system::IComponent {
 public:
     virtual std::string handleRequest(const std::string&) = 0;
 };

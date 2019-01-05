@@ -36,7 +36,10 @@ target_include_directories(${PROJECT_NAME}_test PRIVATE ${gtest_SOURCE_DIR}/incl
 target_include_directories(${PROJECT_NAME}_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE src)
 
+target_link_libraries(${PROJECT_NAME} system)
+
 set_target_properties(${PROJECT_NAME}_test PROPERTIES
                            CXX_STANDARD 17)
 target_link_libraries(${PROJECT_NAME}_test gtest gtest_main)
+
 add_test(runLogicUnitTest ${PROJECT_NAME}_test)

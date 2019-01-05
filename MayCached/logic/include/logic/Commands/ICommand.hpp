@@ -15,6 +15,7 @@ public:
         E_SET,
         E_DELETE,
         E_VERSION,
+        E_STOP,
         E_MAX
     };
     ICommand(CommandType type, const gsl::not_null<IRepresentation*> representation): m_Type(type), m_Representation(representation)

@@ -22,4 +22,14 @@ std::string RequestController::handleRequest(const std::string& input)
     return answer;
 }
 
+void RequestController::start()
+{
+
+}
+
+void RequestController::stop()
+{
+
+}
+
 } }

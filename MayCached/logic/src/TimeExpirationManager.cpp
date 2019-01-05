@@ -12,8 +12,10 @@ TimeExpirationManager::TimeExpirationManager(): m_IsRunning(false)
 
 TimeExpirationManager::~TimeExpirationManager()
 {
-    stopRepetitivelyRemovingExpired();
-    m_Thread.join();
+    if (m_IsRunning)
+    {
+        stopRepetitivelyRemovingExpired();
+    }
 }
 
 bool TimeExpirationManager::addTimeMarker(const std::string &key, const std::chrono::time_point<std::chrono::system_clock> &t)
@@ -44,9 +46,22 @@ void TimeExpirationManager::startRepetitivelyRemoveExpired()
 
 void TimeExpirationManager::stopRepetitivelyRemovingExpired()
 {
-    std::unique_lock<std::mutex> lock(m_StartStopMutex);
-    m_IsRunning = false;
-    m_StartStopCondVar.notify_one();
+    if (m_IsRunning)
+    {
+        {
+            std::unique_lock<std::mutex> lock(m_StartStopMutex);
+            m_IsRunning = false;
+        }
+        m_StartStopCondVar.notify_one();
+        if (m_Thread.joinable())
+        {
+            m_Thread.join();
+        }
+        std::cout << "TImeExpirationManager has been stopped" << std::endl;
+    }
+    else {
+        std::cout << "TimeExpirationManager is already stopped!" << std::endl;
+    }
 }
 
 void TimeExpirationManager::removeExpiredValuesRepetitively()
