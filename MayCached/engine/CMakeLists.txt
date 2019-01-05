@@ -1,55 +1,40 @@
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 project(engine)
 
-add_library(engine
-    include/engine/IRequestController.hpp
-    include/engine/RequestControllerFactory.hpp
-    include/engine/IResponse.hpp
-    src/RequestController.hpp
-    src/RequestController.cpp
-    src/RequestControllerFactory.cpp
-    src/RequestParser.hpp
-    src/RequestParser.cpp
-    src/IRequestParser.hpp
-    src/SimpleProto/LexemeParser.hpp
-    src/SimpleProto/ILexemeParser.hpp
-    src/SimpleProto/LexemeParser.cpp
-    src/RuleSet.hpp
-    src/ICommandBuilder.hpp
-    src/SimpleProto/SimpleCommandBuilder.hpp
-    src/SimpleProto/SimpleCommandBuilder.cpp
-    src/SimpleProto/Representations/SimpleEchoRepresentation.hpp
-    src/SimpleProto/Representations/SimpleEchoRepresentation.cpp
-    src/SimpleProto/Representations/SimpleGetRepresentation.hpp
-    src/SimpleProto/Representations/SimpleGetRepresentation.cpp
-    src/SimpleProto/Representations/SimpleStatusRepresentation.hpp
-    src/SimpleProto/Representations/SimpleStatusRepresentation.cpp
-    )
-set_target_properties(engine PROPERTIES
+file (GLOB ${PROJECT_NAME}_src
+    "*.hpp"
+    "*.cpp"
+    "include/*.hpp"
+    "src/*.hpp"
+    "src/*.cpp"
+    "include/engine/*.hpp"
+    "include/engine/*.cpp"
+    "src/SimpleProto/*.hpp"
+    "src/SimpleProto/*.cpp"
+    "src/SimpleProto/Representations/*.hpp"
+    "src/SimpleProto/Representations/*.cpp"
+    "include/logic/Answers/*.hpp")
+add_library(${PROJECT_NAME} ${${PROJECT_NAME}_src})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 17)
-target_link_libraries(engine logic)
-target_include_directories(engine PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+target_link_libraries(${PROJECT_NAME} logic)
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE src)
 
-##testing to be moved in another CMakeLists
-find_package(GTest REQUIRED)
-find_package(Threads)
-
-add_executable(engine_test test/SimpleProto/LexemeParser_test.hpp
+enable_testing()
+add_executable(${PROJECT_NAME}_test test/SimpleProto/LexemeParser_test.hpp
                            test/TestLauncher.cpp
                            src/SimpleProto/LexemeParser.hpp
                            src/SimpleProto/ILexemeParser.hpp
                            src/SimpleProto/LexemeParser.cpp)
 
 
-target_include_directories(engine_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+target_include_directories(${PROJECT_NAME}_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE src)
-
-set_target_properties(engine_test PROPERTIES
+target_include_directories(${PROJECT_NAME}_test PRIVATE ${gtest_SOURCE_DIR}/include PRIVATE ${gtest_SOURCE_DIR})
+set_target_properties(${PROJECT_NAME}_test PROPERTIES
                            CXX_STANDARD 17)
-target_include_directories(engine_test PRIVATE ${GTEST_INCLUDE_DIRS})
-target_link_libraries(engine_test ${GTEST_LIBRARIES})
-target_link_libraries(engine_test ${CMAKE_THREAD_LIBS_INIT})
-
-#add_subdirectory(test)
+target_link_libraries(${PROJECT_NAME}_test gtest gtest_main)
+add_test(runEngineUnitTest ${PROJECT_NAME}_test)
 

@@ -6,7 +6,10 @@ std::optional<std::vector<std::string> > lexeme_parser::LexemeParser::parse(std:
 {
     const std::string newLine = "\r\n";
     auto newLinePos = input.find("\r\n");
-    input.erase(newLinePos, newLine.length());
+    if (newLinePos != std::string::npos)
+    {
+        input.erase(newLinePos, newLine.length());
+    }
     for(auto& ch : input)
     {
         switch (ch) {

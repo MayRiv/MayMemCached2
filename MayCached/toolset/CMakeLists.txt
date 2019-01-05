@@ -1,2 +1,3 @@
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 add_subdirectory(GSL)
+add_subdirectory(googletest-release-1.8.1)

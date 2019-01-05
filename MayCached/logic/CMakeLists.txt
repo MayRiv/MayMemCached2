@@ -1,82 +1,42 @@
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 project(logic)
 
-add_library(${PROJECT_NAME}
-    include/logic/IHandler.hpp
-    include/logic/Commands/ICommand.hpp
-    src/Handlers/StupidHandler.hpp
-    src/Handlers/StupidHandler.cpp
-    src/Handlers/VersionHandler.hpp
-    src/Handlers/VersionHandler.cpp
-    src/Handlers/SetHandler.hpp
-    src/Handlers/SetHandler.cpp
-    src/Handlers/GetHandler.hpp
-    src/Handlers/GetHandler.cpp
-    src/Handlers/DeleteHandler.cpp
-    src/Handlers/DeleteHandler.hpp
-    src/Storage.hpp
-    src/Storage.cpp
-    src/IStorage.hpp
-    src/Data.hpp
+file (GLOB ${PROJECT_NAME}_src
+    "*.hpp"
+    "*.cpp"
+    "include/*.hpp"
+    "src/*.hpp"
+    "src/*.cpp"
+    "src/Handlers/*.hpp"
+    "src/Handlers/*.cpp"
+    "include/logic/Representations/*.hpp"
+    "include/logic/Representations/*.cpp"
+    "include/logic/Commands/*.hpp"
+    "include/logic/Commands/*.cpp"
+    "include/logic/Answers/*.hpp")
 
-    src/LogicController.cpp
-    src/LogicController.hpp
-    include/logic/LogicControllerFactory.hpp
-    src/LogicControllerFactory.cpp
-    include/logic/ILogicController.hpp
-    src/ITimeExpirationManager.hpp
-    src/TimeExpirationManager.cpp
-    src/TimeExpirationManager.hpp
-    src/TimeExpirationCore.cpp
-    src/TimeExpirationCore.hpp
-    include/logic/Commands/EchoCommand.hpp
-    include/logic/Commands/EchoCommand.cpp
-    include/logic/Commands/VersionCommand.hpp
-    include/logic/Commands/VersionCommand.cpp
-    include/logic/Commands/GetCommand.hpp
-    include/logic/Commands/GetCommand.cpp
-    include/logic/Commands/SetCommand.hpp
-    include/logic/Commands/SetCommand.cpp
-    include/logic/Commands/DeleteCommand.cpp
-    include/logic/Commands/DeleteCommand.hpp
-
-    include/logic/Representations/IRepresentation.hpp
-    include/logic/Representations/IVersionRepresentation.hpp
-    include/logic/Representations/IEchoRepresentation.hpp
-    include/logic/Representations/IStatusRepresentation.hpp
-    include/logic/Representations/IGetRepresentation.hpp
-
-    include/logic/Answers/VersionAnswer.hpp
-    include/logic/Answers/EchoAnswer.hpp
-    include/logic/Answers/StatusAnswer.hpp
-    include/logic/Answers/GetAnswer.hpp
-    )
-
+add_library(${PROJECT_NAME} ${${PROJECT_NAME}_src})
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE src)
 
-target_link_libraries(logic GSL)
-set_target_properties(logic PROPERTIES
+target_link_libraries(${PROJECT_NAME} GSL)
+set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 17)
 
+enable_testing()
 
-#to be removed to another CMAKE
-find_package(GTest REQUIRED)
-find_package(Threads)
-
-add_executable(logic_test  test/TimeExpirationManagerTest.hpp
+add_executable(${PROJECT_NAME}_test  test/TimeExpirationManagerTest.hpp
                            test/TimeExpirationCoreTest.hpp
                            src/TimeExpirationCore.hpp
                            src/TimeExpirationCore.cpp
                            test/TestLauncher.cpp
                            )
 
-
-target_include_directories(logic_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+target_include_directories(${PROJECT_NAME}_test PRIVATE ${gtest_SOURCE_DIR}/include PRIVATE ${gtest_SOURCE_DIR})
+target_include_directories(${PROJECT_NAME}_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE src)
 
-set_target_properties(logic_test PROPERTIES
+set_target_properties(${PROJECT_NAME}_test PROPERTIES
                            CXX_STANDARD 17)
-target_include_directories(logic_test PRIVATE ${GTEST_INCLUDE_DIRS})
-target_link_libraries(logic_test ${GTEST_LIBRARIES})
-target_link_libraries(logic_test ${CMAKE_THREAD_LIBS_INIT})
+target_link_libraries(${PROJECT_NAME}_test gtest gtest_main)
+add_test(runLogicUnitTest ${PROJECT_NAME}_test)

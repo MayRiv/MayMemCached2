@@ -1,23 +1,23 @@
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
 project(connection)
 
-add_library(connection
-    include/connection/IServer.hpp
-    include/connection/ServerFactory.hpp
-    src/Server.hpp
-    src/Server.cpp
-    src/ClientSession.hpp
-    src/ClientSession.cpp
-    src/ServerFactory.cpp
-    )
+file (GLOB ${PROJECT_NAME}_src
+    "*.hpp"
+    "*.cpp"
+    "include/*.hpp"
+    "src/*.hpp"
+    "src/*.cpp"
+    "include/connection/*.hpp"
+    "include/connection/*.cpp")
 
+add_library(${PROJECT_NAME} ${${PROJECT_NAME}_src})
 
-target_include_directories(connection PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE src)
 
-target_link_libraries(connection ${Boost_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
 
-target_link_libraries(connection engine)
+target_link_libraries(${PROJECT_NAME} engine)
 
 
