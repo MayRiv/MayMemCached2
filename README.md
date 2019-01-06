@@ -14,6 +14,8 @@ Right now it supports basic command with following syntax:
 GET <id> - gets value by key if existing, otherwise the answer will EMPTY ;
 SET <id> <value> <optional seconds> - sets value by key. It's possible to set time to expire. ; 
 DEL <id> - removes value from memory, removes corresponding timeMarker. ;
+STOP - shuts down the application
 
-Currently, all the values are stored just in memory, there is no proper Start Up ShutDown logic, there is only simple text protocol support, there is not replication logic, the project is not configurable, there is a mess in CMake.
-To build you need to add to toolset https://github.com/Microsoft/GSL
+Currently, all the values are stored just in memory,  there is only simple text protocol support, there is not replication logic, the project is not configurable.
+To build you need to execute command git sumbodule init to fetch https://github.com/Microsoft/GSL.
+Also you need to build and set up Boost library (later I will set up it as submodule, right now I don't have time for it)
