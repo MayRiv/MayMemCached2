@@ -10,20 +10,16 @@ class IHandler
     std::unique_ptr<IHandler> m_NextHandler{nullptr};
 public:
     virtual void handle(ICommand& command) = 0;
-    void setNextHandler(std::unique_ptr<IHandler>&& handler)
-    {
-        m_NextHandler = std::move(handler);
-    }
-    template <class T>
-    void addHandlerToChain(T&& handler)
+
+    void addHandlerToChain(std::unique_ptr<IHandler>&& handler)
     {
         if (m_NextHandler)
         {
-            m_NextHandler->addHandlerToChain(std::forward<T>(handler));
+            m_NextHandler->addHandlerToChain(std::move(handler));
         }
         else
         {
-            setNextHandler(std::forward<T>(handler));
+            m_NextHandler = std::move(handler);
         }
     }
 protected:
