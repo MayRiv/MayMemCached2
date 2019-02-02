@@ -5,7 +5,7 @@ function(custom_add_executable_from_dir TARGET)
     file(GLOB TARGET_SRC "CMAKE_CURRENT_SOURCE_DIR/*.cpp")
     add_executable(${TARGET} ${TARGET_SRC})
 endfunction()
-
+set(CMAKE_CXX_FLAGS, "-O0")
 add_subdirectory(mainapp)
 add_subdirectory(engine)
 add_subdirectory(connection)

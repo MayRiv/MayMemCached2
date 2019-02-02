@@ -9,10 +9,13 @@ file (GLOB ${PROJECT_NAME}_src
     "src/*.cpp"
     "src/Handlers/*.hpp"
     "src/Handlers/*.cpp"
+    "src/Database/*.hpp"
+    "src/Database/*.cpp"
     "include/logic/Representations/*.hpp"
     "include/logic/Representations/*.cpp"
     "include/logic/Commands/*.hpp"
     "include/logic/Commands/*.cpp"
+
     "include/logic/Answers/*.hpp")
 
 add_library(${PROJECT_NAME} ${${PROJECT_NAME}_src})
@@ -29,6 +32,11 @@ add_executable(${PROJECT_NAME}_test  test/TimeExpirationManagerTest.hpp
                            test/TimeExpirationCoreTest.hpp
                            src/TimeExpirationCore.hpp
                            src/TimeExpirationCore.cpp
+                           test/DatabaseMarshallerTest.hpp
+                           src/Database/DatabaseMarshallerRawBinary.hpp
+                           src/Database/DatabaseMarshallerRawBinary.cpp
+                           src/Database/IDatabaseMarshaller.hpp
+                           src/Data.hpp
                            test/TestLauncher.cpp
                            )
 

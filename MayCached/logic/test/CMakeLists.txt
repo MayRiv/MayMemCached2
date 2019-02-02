@@ -7,6 +7,7 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 add_executable(engine_test TimeExpirationManagerTest.hpp
 			   TimeExpirationCoreTest.hpp
+			   DatabaseMarshallerTest.hpp
                            TestLauncher.cpp)
 
 target_link_libraries(engine ${GTEST_LIBRARIES})
