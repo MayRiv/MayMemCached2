@@ -32,11 +32,19 @@ add_executable(${PROJECT_NAME}_test  test/TimeExpirationManagerTest.hpp
                            test/TimeExpirationCoreTest.hpp
                            src/TimeExpirationCore.hpp
                            src/TimeExpirationCore.cpp
+                           src/TimeExpirationManager.hpp
+                           src/TimeExpirationManager.cpp
+                           src/Storage.hpp
+                           src/Storage.cpp
+                           src/IStorage.hpp
                            test/DatabaseMarshallerTest.hpp
-                           src/Database/DatabaseMarshallerRawBinary.hpp
-                           src/Database/DatabaseMarshallerRawBinary.cpp
-                           src/Database/IDatabaseMarshaller.hpp
+                           src/Database/DataMarshallerRawBinary.hpp
+                           src/Database/DataMarshallerRawBinary.cpp
+                           src/Database/IDataMarshaller.hpp
                            src/Data.hpp
+                           test/InMemorySerializationStrategyTest.hpp
+                           src/Database/InMemorySerializationStrategy.hpp
+                           src/Database/InMemorySerializationStrategy.cpp
                            test/TestLauncher.cpp
                            )
 

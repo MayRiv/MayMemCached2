@@ -2,6 +2,7 @@
 //#include "TimeExpirationManagerTest.hpp"
 #include "TimeExpirationCoreTest.hpp"
 #include "DatabaseMarshallerTest.hpp"
+#include "InMemorySerializationStrategyTest.hpp"
 int main(int argc, char** argv)
 {
     testing::InitGoogleTest(&argc, argv);
