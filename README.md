@@ -22,4 +22,4 @@ Currently, all the values are stored just in memory,  there is only simple text 
 To build you need to execute command "git sumbodule update" to fetch https://github.com/Microsoft/GSL.
 You need to install cmake from https://cmake.org/install/.
 Than you need to build boost library. You can do whatever you want, I personally use Qt Creator with mingw compilier.
-After mingw installation, I added path "D:\Qt\Qt5.12.1\Tools\mingw730_64\bin" to envirement variable, went to toolset/boost and executee commands " bootstrap" and ".\b2 toolset=gcc" to build libraries.
+After mingw installation, I added path "D:\Qt\Qt5.12.1\Tools\mingw730_64\bin" to envirement variable, went to toolset/boost and executed commands " bootstrap" and ".\b2 toolset=gcc" to build libraries. For some reason generated libraries had unnecessary prefix 'lib', so I had to rename
