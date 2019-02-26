@@ -17,6 +17,11 @@ DEL <id> - removes value from memory, removes corresponding timeMarker. ;
 STOP - shuts down the application
 
 Currently, all the values are stored just in memory,  there is only simple text protocol support, there is not replication logic, the project is not configurable.
+
+
 To build you need to execute command "git sumbodule update" to fetch https://github.com/Microsoft/GSL.
+You need to install cmake from https://cmake.org/install/.
 Than you need to build boost library. Open Visual Studio Developer Command Prompt, go to toolset/boost and execute commands " bootstrap" and ".\b2".
+
+
 Also you need to build and set up Boost library (later I will set up it as submodule, right now I don't have time for it)
