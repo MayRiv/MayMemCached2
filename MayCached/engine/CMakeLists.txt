@@ -26,7 +26,10 @@ target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/in
 
 target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
-target_include_directories(${PROJECT_NAME} PUBLIC ${IncludeBoost})
+target_include_directories(${PROJECT_NAME} PUBLIC ${BOOST_INCLUDE})
+target_include_directories(${PROJECT_NAME} PUBLIC ${BOOST_ROOT})
+#message(${IncludeBoost})
+
 
 #[[
 enable_testing()
