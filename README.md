@@ -26,7 +26,7 @@ If you are using Linux, you can just "sudo apt-get install libboost-all-dev", en
 If you are using Windows, the journy begins
 1) Download Boost library from https://www.boost.org/users/download/
 2) Unpack it to folder "/toolset/boost_1_67_0"
-3) Go the folder, and apply "bootstrap", "b2" from Developer Command Prompt if you want to compile library with Visual Studio compilier.
+3) Go the folder, and apply "bootstrap", "b2" from Developer Command Prompt Visual Studio if you want to compile library with Visual Studio compilier.
 Why don't use mingw compilier? I coudn't made it compile ".lib" libraries instead of ".a".
 4a) Go get CMake extension for Visual Studio.
 5a) Use this extension to open the project. For me, this extension works badly and does not allow to navigate through code, so I abadoned Visual Studio.
