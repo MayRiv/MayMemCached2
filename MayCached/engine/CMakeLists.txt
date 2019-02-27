@@ -19,11 +19,16 @@ add_library(${PROJECT_NAME} ${${PROJECT_NAME}_src})
 set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 17)
 target_link_libraries(${PROJECT_NAME} logic)
-target_link_libraries(${PROJECT_NAME} system)
+target_link_libraries(${PROJECT_NAME} system_tools)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE src)
 
+target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${IncludeBoost})
+
+#[[
 enable_testing()
 add_executable(${PROJECT_NAME}_test test/SimpleProto/LexemeParser_test.hpp
                            test/TestLauncher.cpp
@@ -34,9 +39,15 @@ add_executable(${PROJECT_NAME}_test test/SimpleProto/LexemeParser_test.hpp
 
 target_include_directories(${PROJECT_NAME}_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE src)
+
+
+
+
+
 target_include_directories(${PROJECT_NAME}_test PRIVATE ${gtest_SOURCE_DIR}/include PRIVATE ${gtest_SOURCE_DIR})
 set_target_properties(${PROJECT_NAME}_test PROPERTIES
                            CXX_STANDARD 17)
 target_link_libraries(${PROJECT_NAME}_test gtest gtest_main)
+target_include_directories(${PROJECT_NAME}_test PUBLIC ${IncludeBoost})
 add_test(runEngineUnitTest ${PROJECT_NAME}_test)
-
+]]

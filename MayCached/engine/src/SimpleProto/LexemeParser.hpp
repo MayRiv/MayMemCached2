@@ -8,7 +8,6 @@
 #include <boost/statechart/event.hpp>
 #include <boost/statechart/transition.hpp>
 #include <boost/statechart/custom_reaction.hpp>
-#include <optional>
 #include <vector>
 namespace maycached {
 namespace engine {

@@ -19,6 +19,6 @@ target_link_libraries(${PROJECT_NAME} ${Boost_LIBRARIES})
 
 
 target_link_libraries(${PROJECT_NAME} engine)
-target_link_libraries(${PROJECT_NAME} system)
+target_link_libraries(${PROJECT_NAME} system_tools)
 
 

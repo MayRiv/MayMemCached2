@@ -35,7 +35,7 @@ bool TimeExpirationManager::removeTimeMarkers(const std::chrono::time_point<std:
 
 bool TimeExpirationManager::setDeletionDelegate(std::function<bool (const std::string &)> f)
 {
-    m_TimeExpirationCore->setDeletionDelegate(f);
+    return m_TimeExpirationCore->setDeletionDelegate(f);
 }
 
 void TimeExpirationManager::startRepetitivelyRemoveExpired()

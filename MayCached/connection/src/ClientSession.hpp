@@ -4,6 +4,7 @@
 #include <boost/core/noncopyable.hpp>
 #include <boost/asio/ip/tcp.hpp>
 #include <boost/asio/socket_base.hpp>
+#include <boost/asio/io_service.hpp>
 #include <engine/IRequestController.hpp>
 #include <gsl/pointers>
 namespace maycached {

@@ -11,7 +11,7 @@
 #include <gsl/pointers>
 namespace maycached {
 namespace mainapp {
-enum class InitPriority :uint
+enum class InitPriority :uint8_t
 {
     E_CONNECTION = 0,
     E_ENGINE,

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2 FATAL_ERROR)
-project(system)
+project(system_tools)
 
 file (GLOB ${PROJECT_NAME}_src
     "*.hpp"

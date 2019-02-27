@@ -6,6 +6,7 @@
 #include <list>
 #include <iostream>
 #include <algorithm>
+#include <ctype.h>
 namespace maycached {
 namespace engine {
 namespace rules {
@@ -44,7 +45,7 @@ private:
 constexpr auto IS_DIGIT_N = [](RuleSet::Lexemes l, const short n){
     const auto& s = l[n - 1];
     auto nonDigit = std::find_if(s.begin(), s.end(), [](const char c){
-            return !std::isdigit(c);
+            return !isdigit(c);
         });
     bool foundNonDigit = nonDigit != s.end();
     return !foundNonDigit;

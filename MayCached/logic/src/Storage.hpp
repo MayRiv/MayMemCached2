@@ -18,6 +18,7 @@ public:
     bool set(const Data& data){
         std::unique_lock<std::shared_mutex> lock(m_SMutex);
         m_Data[data.key] = data;
+		return true;
     }
     std::optional<std::string> get(const std::string& key) const override;
     bool remove(const std::string& key) override;

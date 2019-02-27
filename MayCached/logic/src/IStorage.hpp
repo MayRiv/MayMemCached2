@@ -1,6 +1,7 @@
 #ifndef I_STORAGE_HPP
 #define I_STORAGE_HPP
 #include <optional>
+#include <string>
 namespace maycached {
 namespace logic {
 class IStorage

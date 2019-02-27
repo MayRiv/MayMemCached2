@@ -23,9 +23,9 @@ int main()
 
     mainapp::SUSDManager::ComponentsCollection components;
 
-    components[static_cast<uint>(mainapp::InitPriority::E_CONNECTION)] = server.get();
-    components[static_cast<uint>(mainapp::InitPriority::E_LOGIC)] = logicController.get();
-    components[static_cast<uint>(mainapp::InitPriority::E_ENGINE)] = requestController.get();
+    components[static_cast<uint8_t>(mainapp::InitPriority::E_CONNECTION)] = server.get();
+    components[static_cast<uint8_t>(mainapp::InitPriority::E_LOGIC)] = logicController.get();
+    components[static_cast<uint8_t>(mainapp::InitPriority::E_ENGINE)] = requestController.get();
 
     SUSDManager.init(std::move(components));
 
