@@ -16,7 +16,15 @@ void SetHandler::handle(ICommand &command)
         std::cout << "Succesfully downcasted" << std::endl;
         std::cout << "Key is " << setCommand.getKey() << std::endl;
         std::cout << "Value is " << setCommand.getValue() << std::endl;
+        if (setCommand.getExprires().has_value())
+        {
+            std::cout << "Expiration is set to " << setCommand.getExprires().value() << std::endl;
+        }
+        else {
+            std::cout << "No expiration is set" << std::endl;
+        }
         auto success = m_Storage.set(setCommand.getKey(), setCommand.getValue(), setCommand.getExprires());
+
 
         setCommand.setAnswer(StatusAnswer{ success ? StatusAnswer::Status::E_SUCCESS
                                                    : StatusAnswer::Status::E_UNKONWN_ERROR});

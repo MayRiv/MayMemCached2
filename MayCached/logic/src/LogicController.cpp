@@ -8,6 +8,8 @@
 #include <Storage.hpp>
 #include <TimeExpirationManager.hpp>
 #include <iostream>
+#include <Database/DatabaseManager.hpp>
+#include <Database/DataMarshallerRawBinary.hpp>
 
 namespace maycached {
 namespace logic {
@@ -15,9 +17,9 @@ namespace logic {
 LogicController::LogicController(gsl::not_null<system::IMainappStopper *> stopper):m_Stopper(stopper)
 {
     m_TimeExpirationManager = std::make_unique<TimeExpirationManager>();
-    m_Storage = std::make_unique<Storage>(m_TimeExpirationManager.get());
-
-    m_FirstHandler = buildChainOfHandlers(*m_Storage);
+    auto DatabaseRawMarshaller = std::make_unique<DataMarshallerRawBinary>();
+    m_DatabaseManager = std::make_unique<DatabaseManager>(std::move(DatabaseRawMarshaller));
+   
     m_isRunning = false;
 
 }
@@ -28,6 +30,8 @@ void LogicController::start()
     if (!m_isRunning)
     {
         m_isRunning = true;
+        m_Storage = m_DatabaseManager->restoreFromFile(m_TimeExpirationManager.get());
+		m_FirstHandler = buildChainOfHandlers(*m_Storage);
         m_TimeExpirationManager->startRepetitivelyRemoveExpired();
     }
 }
@@ -39,6 +43,8 @@ void LogicController::stop()
      m_isRunning = false;
      std::cout << "Starting stop of LogicController" <<std::endl;
      m_TimeExpirationManager->stopRepetitivelyRemovingExpired();
+
+     m_DatabaseManager->serializeToFile(*m_Storage);
    }
 }
 LogicController::~LogicController()

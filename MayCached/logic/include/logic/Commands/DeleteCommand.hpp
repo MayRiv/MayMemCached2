@@ -29,7 +29,7 @@ public:
     }
 private:
     std::unique_ptr<IStatusRepresentation> m_Representation;
-    const std::string& m_Key;
+    const std::string m_Key;
 };
 
 } }

@@ -7,10 +7,12 @@
 #include <ITimeExpirationManager.hpp>
 namespace maycached {
 namespace logic {
+class IInMemorySerializationStrategy;
 class Storage: public IStorage
 {
 public:
-    Storage(ITimeExpirationManager* timeExpirationManager):m_TimeExpirationManager(timeExpirationManager)
+    Storage(ITimeExpirationManager* timeExpirationManager):
+        m_TimeExpirationManager(timeExpirationManager)
     {
         m_TimeExpirationManager->setDeletionDelegate(std::bind(&Storage::remove, this, std::placeholders::_1));
     }

@@ -4,13 +4,18 @@
 #include <logic/IHandler.hpp>
 #include <memory>
 #include <logic/ILogicController.hpp>
-#include <IStorage.hpp>
+#include <Storage.hpp>
 #include <ITimeExpirationManager.hpp>
 #include <system/IComponent.hpp>
 #include <gsl/pointers>
 #include <system/IMainappStopper.hpp>
+
+
 namespace maycached {
 namespace logic {
+
+class DatabaseManager;
+
 class LogicController: public ILogicController
 
 {
@@ -25,7 +30,8 @@ public:
     void handleCommand(ICommand& command) override;
 private:
     std::unique_ptr<IHandler> m_FirstHandler;
-    std::unique_ptr<IStorage> m_Storage;
+    std::unique_ptr<Storage> m_Storage; //should know exact type to switch them in future
+    std::unique_ptr<DatabaseManager> m_DatabaseManager;
     std::unique_ptr<ITimeExpirationManager> m_TimeExpirationManager;
     gsl::not_null<system::IMainappStopper*> m_Stopper;
 };

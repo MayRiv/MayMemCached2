@@ -22,7 +22,7 @@ bool Storage::set(const std::string &key, const std::string &value, std::optiona
     std::unique_lock<std::shared_mutex> lock(m_SMutex);
 
 
-    m_Data[key] = {key, value, (isExpired
+    m_Data[key] = Data{key, value, (isExpired
                    ? std::optional<decltype(now)>(expirationTime)
                    : std::nullopt)};
 
