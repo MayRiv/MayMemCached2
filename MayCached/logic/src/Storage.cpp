@@ -22,7 +22,7 @@ bool Storage::set(const std::string &key, const std::string &value, std::optiona
     std::unique_lock<std::shared_mutex> lock(m_SMutex);
 
 
-    m_Data[key] = Data{key, value, (isExpired
+    m_HotInMemoryData[key] = Data{key, value, (isExpired
                    ? std::optional<decltype(now)>(expirationTime)
                    : std::nullopt)};
 
@@ -32,8 +32,8 @@ bool Storage::set(const std::string &key, const std::string &value, std::optiona
 std::optional<std::string> Storage::get(const std::string &key) const
 {
     std::shared_lock<std::shared_mutex> lock(m_SMutex);
-    auto it = m_Data.find(key);
-    if (it != m_Data.end())
+    auto it = m_HotInMemoryData.find(key);
+    if (it != m_HotInMemoryData.end())
     {
         return std::optional<std::string>(it->second.value);
     }
@@ -47,10 +47,10 @@ bool Storage::remove(const std::string &key)
 {
     std::unique_lock<std::shared_mutex> lock(m_SMutex);
     bool isRemoved{false};
-    auto it = m_Data.find(key);
-    if (it != m_Data.end())
+    auto it = m_HotInMemoryData.find(key);
+    if (it != m_HotInMemoryData.end())
     {
-        m_Data.erase(it);
+        m_HotInMemoryData.erase(it);
         isRemoved = true;
     }
 

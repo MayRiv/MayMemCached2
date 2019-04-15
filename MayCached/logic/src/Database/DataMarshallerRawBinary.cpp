@@ -35,10 +35,8 @@ IDataMarshaller::ManagedBuffer DataMarshallerRawBinary::serialize(const Data &da
     return buffer;
 }
 
-Data DataMarshallerRawBinary::deserialize(const char* serializedData, uint64_t &size) const
+Data DataMarshallerRawBinary::deserializeWholeDataItem(const char* serializedData, uint64_t &size) const
 {
-    uint64_t keySize{0};
-    uint64_t valueSize{0};
     std::string key;
     std::string value;
     bool shouldRestoreTimestamp{false};
@@ -47,14 +45,10 @@ Data DataMarshallerRawBinary::deserialize(const char* serializedData, uint64_t &
     std::chrono::system_clock::duration::rep timeTicks{0};
 
     const char* bufferToRead = serializedData;
-    bufferToRead = readField(bufferToRead, keySize);
-    bufferToRead = readString(bufferToRead, key, keySize);
-    bufferToRead = readField(bufferToRead, valueSize);
-    bufferToRead = readString(bufferToRead,value, valueSize);
-    bufferToRead = readField(bufferToRead, shouldRestoreTimestamp);
+    bufferToRead = parseKey(bufferToRead, key);
+    bufferToRead = parseValueAndExpiration(bufferToRead, value, shouldRestoreTimestamp, timeTicks);
     if (shouldRestoreTimestamp)
     {
-        bufferToRead = readField(bufferToRead, timeTicks);
         std::chrono::system_clock::duration duration(timeTicks);
         std::chrono::system_clock::time_point point(duration);
         expirationTime = std::make_optional(point);
@@ -70,6 +64,7 @@ Data DataMarshallerRawBinary::deserialize(const char* serializedData, uint64_t &
     return result;
 
 }
+
 
 
 

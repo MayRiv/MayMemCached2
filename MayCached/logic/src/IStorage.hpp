@@ -2,6 +2,7 @@
 #define I_STORAGE_HPP
 #include <optional>
 #include <string>
+#include "Data.hpp"
 namespace maycached {
 namespace logic {
 class IStorage
@@ -12,6 +13,7 @@ public:
     virtual bool del(const std::string& key) = 0;
     virtual bool sync(/*need to invent smth to decouple*/) const = 0;
     virtual bool remove(const std::string& key) =0;
+    virtual bool addIndex(DbIndexData index) = 0;
 };
 
 } }

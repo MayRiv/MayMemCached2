@@ -1,9 +1,16 @@
 #include "Database/DatabaseManager.hpp"
 #include <storage.hpp>
 #include <memory>
-#include <Database/IDataMarshaller.hpp>
+#include "Database/DataMarshallerRawBinary.hpp"
+#include <iostream>
 namespace maycached {
 namespace logic {
+
+bool DatabaseManager::searchForValueAndExpiration(uint64_t offset, uint32_t fileId, std::string &value, std::optional<std::chrono::time_point<std::chrono::system_clock> > &willBeExpired) const
+{
+    return false;
+}
+
 std::fstream DatabaseManager::serializeToFile(const Storage & storage) const
 {
     std::fstream fs("storage.b", std::fstream::binary| std::fstream::out);
@@ -36,12 +43,13 @@ std::unique_ptr<Storage> DatabaseManager::restoreFromFile(ITimeExpirationManager
         while(curr != size)
         {
             uint64_t size{0};
-            auto data = m_DataMarshaller->deserialize(buffer, size);
+            auto data = m_DataMarshaller->deserializeWholeDataItem(buffer, size);
             storage->set(data);
             buffer += size;
             curr += size;
         }
     }
+
     return storage;
 
 }

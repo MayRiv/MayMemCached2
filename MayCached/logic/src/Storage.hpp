@@ -19,7 +19,7 @@ public:
     bool set(const std::string& key, const std::string& value, std::optional<uint32_t> expires) override;
     bool set(const Data& data){
         std::unique_lock<std::shared_mutex> lock(m_SMutex);
-        m_Data[data.key] = data;
+        m_HotInMemoryData[data.key] = data;
 		return true;
     }
     std::optional<std::string> get(const std::string& key) const override;
@@ -28,10 +28,17 @@ public:
     bool sync(/*need to invent smth to decouple*/) const  override;
     std::unordered_map<std::string, Data> getData() const {
         std::shared_lock<std::shared_mutex> lock(m_SMutex); //not sure that this will be enough
-        return m_Data;
+        return m_HotInMemoryData;
+    }
+
+    virtual bool addIndex(DbIndexData index) override
+    {
+        //m_IndexDatabaseData.emplace()
+        return false;
     }
 private:
-    std::unordered_map<std::string, Data> m_Data;
+    std::unordered_map<std::string, Data> m_HotInMemoryData;
+    std::unordered_map<std::string, DbIndexData> m_IndexDatabaseData;
     mutable std::shared_mutex m_SMutex;
     ITimeExpirationManager* m_TimeExpirationManager;
 };

@@ -15,6 +15,7 @@ namespace maycached {
 namespace logic {
 
 class DatabaseManager;
+class DatabaseManagerIndexes;
 
 class LogicController: public ILogicController
 
@@ -32,6 +33,7 @@ private:
     std::unique_ptr<IHandler> m_FirstHandler;
     std::unique_ptr<Storage> m_Storage; //should know exact type to switch them in future
     std::unique_ptr<DatabaseManager> m_DatabaseManager;
+    std::unique_ptr<DatabaseManagerIndexes> m_DatabaseIndexes;
     std::unique_ptr<ITimeExpirationManager> m_TimeExpirationManager;
     gsl::not_null<system::IMainappStopper*> m_Stopper;
 };
