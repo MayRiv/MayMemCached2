@@ -43,14 +43,13 @@ add_executable(${PROJECT_NAME}_test test/SimpleProto/LexemeParser_test.hpp
 target_include_directories(${PROJECT_NAME}_test PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
     PRIVATE src)
 
-
-
-
-
 target_include_directories(${PROJECT_NAME}_test PRIVATE ${gtest_SOURCE_DIR}/include PRIVATE ${gtest_SOURCE_DIR})
+
 set_target_properties(${PROJECT_NAME}_test PROPERTIES
                            CXX_STANDARD 17)
 target_link_libraries(${PROJECT_NAME}_test gtest gtest_main)
 target_include_directories(${PROJECT_NAME}_test PUBLIC ${IncludeBoost})
+target_include_directories(${PROJECT_NAME}_test PUBLIC ${BOOST_INCLUDE})
+target_include_directories(${PROJECT_NAME}_test PUBLIC ${BOOST_ROOT})
 add_test(runEngineUnitTest ${PROJECT_NAME}_test)
 ]]
